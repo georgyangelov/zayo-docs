@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.20
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1>Zayo</h1>
+
+<p>Zayo is an extensible Slack bot that can be taught to do almost anything using an easy-to-read Ruby DSL.</p>
+
+<h2>Skills</h2>
+
+<p>Skills are single-file modules that teach the bot to do something. An example skill looks like this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ask for food</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_on_start'>on_start</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_schedule'>schedule</span><span class='period'>.</span><span class='id identifier rubyid_cron'>cron</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>50 11 * * 1-5</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:ask_for_food</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_ask_for_food'>ask_for_food</span>
+    <span class='id identifier rubyid_in_channel'>in_channel</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#random-food</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Who wants to go have lunch?</span><span class='tstring_end'>&quot;</span></span>
+
+      <span class='id identifier rubyid_schedule'>schedule</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span> <span class='int'>10</span><span class='period'>.</span><span class='id identifier rubyid_minutes'>minutes</span><span class='period'>.</span><span class='id identifier rubyid_from_now'>from_now</span><span class='comma'>,</span> <span class='symbol'>:lets_go</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_lets_go'>lets_go</span><span class='lparen'>(</span><span class='id identifier rubyid_ask_message'>ask_message</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_reactions'>reactions</span> <span class='op'>=</span> <span class='id identifier rubyid_slack'>slack</span><span class='period'>.</span><span class='id identifier rubyid_reactions_on_message'>reactions_on_message</span> <span class='id identifier rubyid_ask_message'>ask_message</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_reactions'>reactions</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Let&#39;s go!</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_react_with'>react_with</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:forever-alone:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_ask_message'>ask_message</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>The above skill will ask <code>Who wants to go have lunch?</code> in <code>#random-food</code> at 11:50 every work day. 10 minutes after that, it will either say <code>Let&#39;s go!</code> or react with <code>:forever-alone:</code> depending on if there are any reactions below its first message.</p>
+
+<h2>Understanding message intent</h2>
+
+<p>Using Wit.ai, Zayo can infer user intent from free-text messages. This is typically how interactions with Zayo are started.</p>
+
+<p>To teach Zayo to understand a query, just provide some examples in the skill code, then attach code whenever this intent is detected in a message:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>just talking</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_teach'>teach</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/hi</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hi</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hey</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hello</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hello, zayo</span><span class='tstring_end'>&#39;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduce_yourself</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>introduce yourself</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>please introduce yourself</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>please make an introduction</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>who are you?</span><span class='tstring_end'>&#39;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/hi</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hey :)</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduce_yourself</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I am Zayo, nice to meet you! :)</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Intents can also extract parts of the message (called &quot;entities&quot; in Wit.ai):</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>just talking</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_teach'>teach</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>lookups:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>free-text</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hey, I am Georgi</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>    <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Georgi</span><span class='tstring_end'>&#39;</span></span>   <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I am Batman</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>         <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Batman</span><span class='tstring_end'>&#39;</span></span>   <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>my name is Superman</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Superman</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nice to meet you, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_single'>single</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>! I am Zayo</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h2>Interactions and context</h2>
+
+<p>Zayo can interact with Slack users by asking questions, replying in threads, posting messages and reacting to messages. A Zayo command does not need to have all of its parameters in a single message. For example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>just talking</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_teach'>teach</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>lookups:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>free-text</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>have we been introduced?</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>let&#39;s have an introduction</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I don&#39;t know you</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hey, I am Georgi</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>    <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Georgi</span><span class='tstring_end'>&#39;</span></span>   <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I am Batman</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>         <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Batman</span><span class='tstring_end'>&#39;</span></span>   <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>my name is Superman</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Superman</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_single'>single</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nice to meet you, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>! I am Zayo</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I am Zayo</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_ask_for_string'>ask_for_string</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>What is your name?</span><span class='tstring_end'>&#39;</span></span>
+
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nice to meet you, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>!</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>The script for this interaction can proceed in two different ways, depending on whether the user&#39;s name is known in the original message or not:</p>
+
+<pre class="code ruby"><code class="ruby">&gt; (user) Hey, I am Batman.
+&gt; (zayo) Nice to meet you, Batman! I am Zayo
+</code></pre>
+
+<p>or</p>
+
+<pre class="code ruby"><code class="ruby">&gt; (user) Have we been introduced?
+&gt; (zayo) I am Zayo
+&gt; (zayo) What is your name?
+&gt; (user) Batman
+&gt; (zayo) Nice to meet you, Batman!
+</code></pre>
+
+<h2>Persistent state</h2>
+
+<p>Skills can persist data such as lists, counters, etc. Persistent storage is Zayo&#39;s &quot;memory&quot;:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>names</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_teach'>teach</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>lookups:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>free-text</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>have we been introduced?</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>let&#39;s have an introduction</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I don&#39;t know you</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hey, I am Georgi</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>    <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Georgi</span><span class='tstring_end'>&#39;</span></span>   <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I am Batman</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>         <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Batman</span><span class='tstring_end'>&#39;</span></span>   <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>my name is Superman</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Superman</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/hi</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hi</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hey</span><span class='tstring_end'>&#39;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/introduction</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_single'>single</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+
+    <span class='id identifier rubyid_storage'>storage</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_store'>store</span><span class='op'>|</span>
+      <span class='id identifier rubyid_store'>store</span><span class='lbracket'>[</span><span class='symbol'>:names</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+      <span class='id identifier rubyid_store'>store</span><span class='lbracket'>[</span><span class='symbol'>:names</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nice to meet you, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>! I am Zayo</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I am Zayo</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_ask_for_string'>ask_for_string</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>What is your name?</span><span class='tstring_end'>&#39;</span></span>
+
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nice to meet you, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>!</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>talkative/hi</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_storage'>storage</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_store'>store</span><span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_store'>store</span><span class='lbracket'>[</span><span class='symbol'>:names</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hey, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>!</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello :)</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h2>Extracting dates and time from messages</h2>
+
+<p><strong>WIP</strong></p>
+
+<h2>API Docs</h2>
+
+<p><strong>WIP</strong></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Fri Oct  4 23:23:32 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.20 (ruby-2.6.1).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: SlackQuestionAbilities
+  
+    &mdash; Documentation by YARD 0.9.20
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "SlackQuestionAbilities";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo;
+    
+    
+    <span class="title">SlackQuestionAbilities</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: SlackQuestionAbilities
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="SkillActions.html" title="SkillActions (class)">SkillActions</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>src/abilities/slack_question_abilities.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="SlackQuestionAbilities/Option.html" title="SlackQuestionAbilities::Option (class)">Option</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ask_bool-instance_method" title="#ask_bool (instance method)">#<strong>ask_bool</strong>(question, vars: nil)  &#x21d2; Object </a>
+    
+
+    
+      (also: #ask_for_bool)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ask_options-instance_method" title="#ask_options (instance method)">#<strong>ask_options</strong>(text, options, numbered: true)  &#x21d2; Object </a>
+    
+
+    
+      (also: #ask_for_options, #ask_for_option, #ask_option)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ask_string-instance_method" title="#ask_string (instance method)">#<strong>ask_string</strong>(question, vars: nil)  &#x21d2; Object </a>
+    
+
+    
+      (also: #ask_for_string)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ask_time-instance_method" title="#ask_time (instance method)">#<strong>ask_time</strong>(question, vars: nil, future: nil, past: nil)  &#x21d2; Object </a>
+    
+
+    
+      (also: #ask_for_time)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#confirm-instance_method" title="#confirm (instance method)">#<strong>confirm</strong>(question, vars: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="ask_bool-instance_method">
+  
+    #<strong>ask_bool</strong>(question, vars: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='ask_for_bool-instance_method'>ask_for_bool</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'src/abilities/slack_question_abilities.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ask_bool'>ask_bool</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_say'>say</span> <span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='id identifier rubyid_vars'>vars</span>
+  <span class='id identifier rubyid_entities'>entities</span> <span class='op'>=</span> <span class='id identifier rubyid_analyze_message'>analyze_message</span><span class='lparen'>(</span><span class='id identifier rubyid_await_next_response'>await_next_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='symbol'>:wit_entities</span><span class='comma'>,</span> <span class='symbol'>:yes</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_single'>single</span><span class='period'>.</span><span class='id identifier rubyid_bool_response'>bool_response</span>
+    <span class='kw'>true</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='symbol'>:wit_entities</span><span class='comma'>,</span> <span class='symbol'>:no</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_single'>single</span><span class='period'>.</span><span class='id identifier rubyid_bool_response'>bool_response</span>
+    <span class='kw'>false</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_ask_bool'>ask_bool</span> <span class='id identifier rubyid_any_string'>any_string</span><span class='lparen'>(</span><span class='symbol'>:ask_for_bool</span><span class='comma'>,</span> <span class='symbol'>:i_dont_understand</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ask_options-instance_method">
+  
+    #<strong>ask_options</strong>(text, options, numbered: true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='ask_for_options-instance_method'>ask_for_options</span>, <span id='ask_for_option-instance_method'>ask_for_option</span>, <span id='ask_option-instance_method'>ask_option</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'src/abilities/slack_question_abilities.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ask_options'>ask_options</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='label'>numbered:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_numbered'>numbered</span>
+    <span class='id identifier rubyid_string_options'>string_options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='int'>1</span><span class='embexpr_end'>}</span><span class='tstring_content'>) </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_option'>option</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_text'>text</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n\n</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_string_options'>string_options</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_string_options'>string_options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_join_with_or'>join_with_or</span><span class='lparen'>(</span><span class='id identifier rubyid_string_options'>string_options</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_capitalize'>capitalize</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_await_next_response'>await_next_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_numbered'>numbered</span>
+      <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^[^0-9]*|[\(\)\.]</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+
+      <span class='kw'>return</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='id identifier rubyid_response'>response</span> <span class='op'>-</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span> <span class='op'>&gt;=</span> <span class='int'>1</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+
+      <span class='id identifier rubyid_number_options'>number_options</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='int'>1</span><span class='op'>..</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Не те разбирам, моля те отговори с </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_join_with_or'>join_with_or</span> <span class='id identifier rubyid_number_options'>number_options</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\!\.\?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_selected_option'>selected_option</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span> <span class='id identifier rubyid_response'>response</span> <span class='rbrace'>}</span>
+
+      <span class='kw'>return</span> <span class='id identifier rubyid_selected_option'>selected_option</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span> <span class='kw'>if</span> <span class='id identifier rubyid_selected_option'>selected_option</span>
+
+      <span class='id identifier rubyid_response_options'>response_options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_option'>option</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Не те разбирам, моля те отговори с </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_join_with_or'>join_with_or</span> <span class='id identifier rubyid_response_options'>response_options</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ask_string-instance_method">
+  
+    #<strong>ask_string</strong>(question, vars: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='ask_for_string-instance_method'>ask_for_string</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'src/abilities/slack_question_abilities.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ask_string'>ask_string</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_say'>say</span> <span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='id identifier rubyid_vars'>vars</span>
+  <span class='id identifier rubyid_await_next_response'>await_next_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ask_time-instance_method">
+  
+    #<strong>ask_time</strong>(question, vars: nil, future: nil, past: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='ask_for_time-instance_method'>ask_for_time</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+90
+91
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'src/abilities/slack_question_abilities.rb', line 90</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ask_time'>ask_time</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>future:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>past:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_say'>say</span> <span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='id identifier rubyid_vars'>vars</span>
+
+  <span class='id identifier rubyid_await_next_response'>await_next_response</span><span class='period'>.</span><span class='id identifier rubyid_extracted_time'>extracted_time</span><span class='lparen'>(</span><span class='label'>future:</span> <span class='id identifier rubyid_future'>future</span><span class='comma'>,</span> <span class='label'>past:</span> <span class='id identifier rubyid_past'>past</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="confirm-instance_method">
+  
+    #<strong>confirm</strong>(question, vars: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'src/abilities/slack_question_abilities.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_confirm'>confirm</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_ask_bool'>ask_bool</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='comma'>,</span> <span class='label'>vars:</span> <span class='id identifier rubyid_vars'>vars</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_react_with'>react_with</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>+1</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Interaction</span><span class='op'>::</span><span class='const'>StopInteraction</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Fri Oct  4 23:23:32 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.20 (ruby-2.6.1).
+</div>
+
+    </div>
+  </body>
+</html>
