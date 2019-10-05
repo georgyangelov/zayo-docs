@@ -247,15 +247,57 @@
 
 <h2>Extracting dates and time from messages</h2>
 
-<p><strong>WIP</strong></p>
+<p>Skills can parse natural-language date and time input. This is done with <a href="https://github.com/facebook/duckling">Duckling</a> (more specifically, a fork to support BG input: <a href="https://github.com/georgyangelov/duckling/tree/add-bg-time">https://github.com/georgyangelov/duckling/tree/add-bg-time</a>).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reminder</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_teach'>teach</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:about</span><span class='comma'>,</span> <span class='label'>lookups:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>free-text</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_intent'>intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reminder/new</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sample'>sample</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remind me</span><span class='tstring_end'>&#39;</span></span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remind me to do the dishes</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:about</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>do the dishes</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remind me tomorrow to buy a beer</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:about</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>buy a beer</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remind me to call Joe in 10 minutes</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:about</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>call Joe</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_sample'>sample</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remind me to empty the trash can tomorrow</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_entity'>entity</span> <span class='symbol'>:about</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>empty the trash can</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_on_intent'>on_intent</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>reminder/new</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+    <span class='id identifier rubyid_about'>about</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_single'>single</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+    <span class='id identifier rubyid_about'>about</span> <span class='op'>=</span> <span class='id identifier rubyid_ask_for_string'>ask_for_string</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>What should I remind you about?</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_about'>about</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='id identifier rubyid_time'>time</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_extracted_time'>extracted_time</span> <span class='label'>future:</span> <span class='kw'>true</span>
+    <span class='id identifier rubyid_time'>time</span> <span class='op'>=</span> <span class='id identifier rubyid_ask_for_time'>ask_for_time</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>When should I remind you?</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_time'>time</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_time'>time</span><span class='period'>.</span><span class='id identifier rubyid_past?'>past?</span>
+      <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I can\&#39;t remind in the past, unfortunately :disappointed:</span><span class='tstring_end'>&#39;</span></span>
+      <span class='kw'>next</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_schedule'>schedule</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span> <span class='id identifier rubyid_time'>time</span><span class='comma'>,</span> <span class='symbol'>:remind</span><span class='comma'>,</span> <span class='id identifier rubyid_about'>about</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_remind'>remind</span><span class='lparen'>(</span><span class='id identifier rubyid_about'>about</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hey! You wanted me to remind you about `</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_about'>about</span><span class='embexpr_end'>}</span><span class='tstring_content'>`</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p><code>extracted_time</code> and <code>ask_for_time</code> try to disambiguate any datetimes they are not sure about. For example, if given <code>tuesday</code> as an input, it will give the user a couple of options (this tuesday, next tuesday) and ask for a choice. Another example is for times such as <code>at 10</code> - it will ask if this is <code>at 10pm</code> or <code>at 10am</code>.</p>
 
 <h2>API Docs</h2>
 
-<p><strong>WIP</strong></p>
+<p>Want to learn more? Take a look at:</p>
+
+<ul>
+<li><a href="docs/preparing-for-development.md">Preparing for development</a></li>
+<li><a href="docs/installing-for-a-slack-channel.md">Installing for a new Slack Channel</a></li>
+<li><a href="docs/how-to-build-a-skill.md">How To Build a Skill</a></li>
+</ul>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Oct  4 23:36:08 2019 by
+  Generated on Sat Oct  5 11:42:55 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.1).
 </div>

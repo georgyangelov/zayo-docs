@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: how-to-build-a-skill
+  
+    &mdash; Documentation by YARD 0.9.20
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "how-to-build-a-skill";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: how-to-build-a-skill</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1>How to Build a Skill</h1>
+
+<h2>Before you start coding the skill</h2>
+
+<ol>
+<li>Pick a name for the skill. Skill names should be unique so pick something that nobody else will take accidentally.</li>
+<li>Create a file in <code>skills/</code> with the skill name (use snake_case).</li>
+<li>Use that file for the skill&#39;s code. Whenever the code there changes, you need to rebuild and restart the docker container (<code>docker-compose up -d --build</code>).</li>
+</ol>
+
+<h2>Creating the skill</h2>
+
+<p>All skill code should be defined inside of a <code>Skill.define</code> block:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>skill name</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='comment'># Skill code here
+</span><span class='kw'>end</span>
+</code></pre>
+
+<p>Directly in the skill&#39;s define block, you can attach listeners (<span class='object_link'><a href="SkillActions.html#listen_for-class_method" title="SkillActions.listen_for (method)">SkillActions.listen_for</a></span>, <span class='object_link'><a href="SkillActions.html#on_intent-class_method" title="SkillActions.on_intent (method)">SkillActions.on_intent</a></span>, <span class='object_link'><a href="SkillActions.html#on_reaction-class_method" title="SkillActions.on_reaction (method)">SkillActions.on_reaction</a></span>), provide Wit.ai examples (<span class='object_link'><a href="SkillActions.html#teach-class_method" title="SkillActions.teach (method)">SkillActions.teach</a></span>) or hook into the skill lifecycle (<span class='object_link'><a href="SkillActions.html#on_start-class_method" title="SkillActions.on_start (method)">SkillActions.on_start</a></span>, <span class='object_link'><a href="SkillActions.html#on_stop-class_method" title="SkillActions.on_stop (method)">SkillActions.on_stop</a></span>).</p>
+
+<p>For all available top-level actions and how to use them, see the class methods on <span class='object_link'><a href="SkillActions.html" title="SkillActions (class)">SkillActions</a></span>.</p>
+
+<h2>Interactions and context</h2>
+
+<p>Whenever some of the above listeners get triggered, the code provided to them is executed in an interaction. The interaction is a &quot;thread&quot; (specifically, a Fiber / Green Thread) and provides a context for some actions inside of the handler code.</p>
+
+<p>For example, the following code will know where to reply to the user&#39;s original <code>ping</code> message:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>skill name</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_listen_for'>listen_for</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ping</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pong</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Using this implicit context, the <code>say</code> method knows to either reply in a thread (if on a public channel) or send a direct message (if the <code>ping</code> is a direct message). See <span class='object_link'><a href="SlackMessageAbilities.html#say-instance_method" title="SlackMessageAbilities#say (method)">SlackMessageAbilities#say</a></span> for more details on the behaviour.</p>
+
+<p>The interaction context includes the original message that started the interaction, the user who sent that message, what channel it was on, etc.</p>
+
+<h2>Abilities</h2>
+
+<p>Abilities are tools that skills can use to achieve their goal. In programmer terms, abilities are helper methods providing functionality. See <span class='object_link'><a href="SkillActions.html" title="SkillActions (class)">SkillActions</a></span> and all of its instance methods (including the ones included from modules) for a complete list and documentation on each one.</p>
+
+<p>Some abilities are called directly (as with <code>say</code> above), while others are used through an object (e.g. <code>slack.delete_message</code>).</p>
+
+<h2>Schedules</h2>
+
+<p>Zayo can keep track of time and trigger some interactions at a specified moment.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ping skill</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_listen_for'>listen_for</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ping</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_schedule'>schedule</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span> <span class='int'>10</span><span class='period'>.</span><span class='id identifier rubyid_minutes'>minutes</span><span class='period'>.</span><span class='id identifier rubyid_from_now'>from_now</span><span class='comma'>,</span> <span class='symbol'>:pong</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_pong'>pong</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pong</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>The above skill listens for <code>ping</code> (<code>ping</code> on a DM or <code>zayo, ping</code> in a public channel), then waits 10 minutes and responds with <code>pong</code>.</p>
+
+<p>The original interaction context is preserved and the <code>say</code> method still knows where to send the message.</p>
+
+<p>The schedules are also saved to persistent storage, so even if Zayo is restarted, the schedule will not be lost.</p>
+
+<h2>Switching channels</h2>
+
+<p>Sometimes you want to send a message to a different channel. This can be done using <span class='object_link'><a href="SkillActions.html#in_channel-instance_method" title="SkillActions#in_channel (method)">SkillActions#in_channel</a></span>.</p>
+
+<h2>Accessing persistent storage</h2>
+
+<p>See <span class='object_link'><a href="SkillActions.html#storage-instance_method" title="SkillActions#storage (method)">SkillActions#storage</a></span>. Storage is scoped to a skill, so that skills don&#39;t step on their toes. However, <span class='object_link'><a href="SkillActions.html#storage-instance_method" title="SkillActions#storage (method)">SkillActions#storage</a></span> acts as a transaction so other skills trying to access the storage at the same time must wait. Keep the storage open as less time as possible.</p>
+
+<h2>Strings and Internationalization</h2>
+
+<p>Some methods (e.g. <span class='object_link'><a href="SlackMessageAbilities.html#say-instance_method" title="SlackMessageAbilities#say (method)">SlackMessageAbilities#say</a></span> and <span class='object_link'><a href="SlackQuestionAbilities.html#ask_string-instance_method" title="SlackQuestionAbilities#ask_string (method)">SlackQuestionAbilities#ask_string</a></span>) can accept both strings and symbols as a message argument.</p>
+
+<p>If the argument is a string (<code>say &#39;hi&#39;</code>), it is sent as-is.</p>
+
+<p>If the argument is a symbol (<code>say :hi</code>), it is used as a key and a message is taken from <code>config/string.yml</code> corresponding to that key (the top-level <code>hi</code> key in this example). The symbols can include <code>.</code>, which denotes a subkey. For example, <code>say :&#39;food.lets_go&#39;</code> looks for the nested key <code>lets_go</code> inside of <code>food</code>.
+If the key is set to a list instead of a string, one of the elements of the array is taken at random.</p>
+
+<h2>Configuring Wit.ai intents</h2>
+
+<p><strong>TODO</strong></p>
+
+<h2>Print natural language strings for dates</h2>
+
+<p>Instead of saying something like <code>You will be reminded at 2019-10-05T10:09:00Z.</code>, you can say <code>You will be reminded tomorrow at 10:09 in the morning.</code>. The <span class='object_link'><a href="SkillActions.html#humanize-instance_method" title="SkillActions#humanize (method)">SkillActions#humanize</a></span> method can be used to transform dates and times to human-like strings:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Skill</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ping skill</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_listen_for'>listen_for</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ping</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_ping_time'>ping_time</span> <span class='op'>=</span> <span class='int'>10</span><span class='period'>.</span><span class='id identifier rubyid_minutes'>minutes</span><span class='period'>.</span><span class='id identifier rubyid_from_now'>from_now</span>
+
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You will be reminded </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_humanize'>humanize</span><span class='lparen'>(</span><span class='id identifier rubyid_ping_time'>ping_time</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='id identifier rubyid_schedule'>schedule</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span> <span class='id identifier rubyid_ping_time'>ping_time</span><span class='comma'>,</span> <span class='symbol'>:pong</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_pong'>pong</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pong</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h2>I want to learn more!</h2>
+
+<p>You can take a look at what abilities there are - see the instance methods of <span class='object_link'><a href="SkillActions.html" title="SkillActions (class)">SkillActions</a></span>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sat Oct  5 11:42:55 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.20 (ruby-2.6.1).
+</div>
+
+    </div>
+  </body>
+</html>
