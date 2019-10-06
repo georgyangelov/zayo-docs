@@ -440,7 +440,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>TODO: Make this an actual channel, not the id.</p>
+</div></span>
   
 </li>
 
@@ -462,7 +463,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>TODO: Make this an actual thread, not the id.</p>
+</div></span>
   
 </li>
 
@@ -1290,12 +1292,12 @@ greetings:
       <pre class="lines">
 
 
-216
-217
-218</pre>
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 216</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 218</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_analyze_message'>analyze_message</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
   <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_request_wit_data'>request_wit_data</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
@@ -1320,18 +1322,18 @@ greetings:
       <pre class="lines">
 
 
-224
-225
 226
 227
 228
 229
 230
 231
-232</pre>
+232
+233
+234</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 226</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_any_string'>any_string</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_responses'>responses</span> <span class='op'>=</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
@@ -1362,14 +1364,14 @@ greetings:
       <pre class="lines">
 
 
-241
-242
 243
 244
-245</pre>
+245
+246
+247</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 241</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_await_next_response'>await_next_response</span>
   <span class='id identifier rubyid_channel'>channel</span><span class='comma'>,</span> <span class='id identifier rubyid_thread'>thread</span> <span class='op'>=</span> <span class='id identifier rubyid_response_defaults'>response_defaults</span>
@@ -1426,15 +1428,15 @@ greetings:
       <pre class="lines">
 
 
-234
-235
 236
 237
 238
-239</pre>
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 236</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_humanize'>humanize</span><span class='lparen'>(</span><span class='id identifier rubyid_stuff'>stuff</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_stuff'>stuff</span>
@@ -1547,8 +1549,6 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-196
-197
 198
 199
 200
@@ -1561,19 +1561,21 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
 207
 208
 209
-210</pre>
+210
+211
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 198</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_channel'>in_channel</span><span class='lparen'>(</span><span class='id identifier rubyid_channel'>channel</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_last_context'>last_context</span> <span class='op'>=</span> <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_new_context'>new_context</span> <span class='op'>=</span> <span class='id identifier rubyid_last_context'>last_context</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
 
-  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_channel'>channel</span> <span class='op'>=</span> <span class='id identifier rubyid_find_channel_id'>find_channel_id</span><span class='lparen'>(</span><span class='id identifier rubyid_channel'>channel</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_thread_id'>thread_id</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_initial_message_ts'>initial_message_ts</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_last_message_ts'>last_message_ts</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_channel'>channel</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Channel.html" title="Channel (class)">Channel</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@app</span><span class='comma'>,</span> <span class='id identifier rubyid_find_channel_id'>find_channel_id</span><span class='lparen'>(</span><span class='id identifier rubyid_channel'>channel</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_thread'>thread</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_initial_message'>initial_message</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_new_context'>new_context</span><span class='period'>.</span><span class='id identifier rubyid_last_message'>last_message</span> <span class='op'>=</span> <span class='kw'>nil</span>
 
   <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span> <span class='op'>=</span> <span class='id identifier rubyid_new_context'>new_context</span>
 
@@ -1595,21 +1597,31 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>TODO: Make this an actual channel, not the id</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-162
 163
-164</pre>
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initial_channel'>initial_channel</span>
-  <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_channel'>channel</span>
+  <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_channel'>channel</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1625,21 +1637,31 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>TODO: Make this an actual thread, not the id</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-166
-167
-168</pre>
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initial_thread'>initial_thread</span>
-  <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_thread_id'>thread_id</span>
+  <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_thread'>thread</span> <span class='op'>?</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_thread'>thread</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1661,12 +1683,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-170
-171
-172</pre>
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interaction_id'>interaction_id</span>
   <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
@@ -1691,12 +1713,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-212
-213
-214</pre>
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_storage'>storage</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_storage'>storage</span><span class='period'>.</span><span class='id identifier rubyid_for_skill'>for_skill</span><span class='lparen'>(</span><span class='ivar'>@skill</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1721,12 +1743,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-220
-221
-222</pre>
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 222</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
   <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_strings'>strings</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1741,7 +1763,7 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Oct  5 13:13:44 2019 by
+  Generated on Sun Oct  6 16:19:44 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.1).
 </div>

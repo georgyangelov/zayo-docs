@@ -336,7 +336,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_active_schedules'>active_schedules</span>
   <span class='ivar'>@skill</span><span class='period'>.</span><span class='id identifier rubyid_saved_schedules'>saved_schedules</span>
-    <span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:context</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>==</span> <span class='ivar'>@context</span><span class='period'>.</span><span class='id identifier rubyid_user_id'>user_id</span> <span class='rbrace'>}</span>
+    <span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:context</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='ivar'>@context</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span>
     <span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='const'>Hashie</span><span class='op'>::</span><span class='const'>Mash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -475,7 +475,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Oct  5 13:13:44 2019 by
+  Generated on Sun Oct  6 16:19:45 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.1).
 </div>
