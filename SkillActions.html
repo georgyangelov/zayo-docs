@@ -89,7 +89,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="GoogleCalendarAbilities.html" title="GoogleCalendarAbilities (module)">GoogleCalendarAbilities</a></span>, <span class='object_link'><a href="SlackApiAbilities.html" title="SlackApiAbilities (module)">SlackApiAbilities</a></span>, <span class='object_link'><a href="SlackMessageAbilities.html" title="SlackMessageAbilities (module)">SlackMessageAbilities</a></span>, <span class='object_link'><a href="SlackQuestionAbilities.html" title="SlackQuestionAbilities (module)">SlackQuestionAbilities</a></span>, SlackRubyBot::Loggable, <span class='object_link'><a href="TimerAbilities.html" title="TimerAbilities (module)">TimerAbilities</a></span></dd>
+      <dd><span class='object_link'><a href="GoogleCalendarAbilities.html" title="GoogleCalendarAbilities (module)">GoogleCalendarAbilities</a></span>, <span class='object_link'><a href="MqttAbilities.html" title="MqttAbilities (module)">MqttAbilities</a></span>, <span class='object_link'><a href="SlackApiAbilities.html" title="SlackApiAbilities (module)">SlackApiAbilities</a></span>, <span class='object_link'><a href="SlackMessageAbilities.html" title="SlackMessageAbilities (module)">SlackMessageAbilities</a></span>, <span class='object_link'><a href="SlackQuestionAbilities.html" title="SlackQuestionAbilities (module)">SlackQuestionAbilities</a></span>, SlackRubyBot::Loggable, <span class='object_link'><a href="TimerAbilities.html" title="TimerAbilities (module)">TimerAbilities</a></span></dd>
   </dl>
   
   
@@ -160,6 +160,29 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Register a handler for a specific Wit.ai intent.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on_mqtt_message-class_method" title="on_mqtt_message (class method)">.<strong>on_mqtt_message</strong>(topic, priority: 10) {|event| ... } &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Register a handler to be called when an MQTT message is received on a specific topic.</p>
 </div></span>
   
 </li>
@@ -591,6 +614,17 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="MqttAbilities.html" title="MqttAbilities (module)">MqttAbilities</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="MqttAbilities.html#mqtt-instance_method" title="MqttAbilities#mqtt (method)">#mqtt</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="GoogleCalendarAbilities.html" title="GoogleCalendarAbilities (module)">GoogleCalendarAbilities</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="GoogleCalendarAbilities.html#google_calendar-instance_method" title="GoogleCalendarAbilities#google_calendar (method)">#google_calendar</a></span></p>
 
@@ -704,12 +738,12 @@ The listener with more priority is preferred.</p>
       <pre class="lines">
 
 
-82
 83
-84</pre>
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_listen_for'>listen_for</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>20</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_on_message'>on_message</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='id identifier rubyid_priority'>priority</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -804,15 +838,132 @@ The listener with more priority is preferred.</p>
       <pre class="lines">
 
 
-99
 100
-101</pre>
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_intent'>on_intent</span><span class='lparen'>(</span><span class='id identifier rubyid_intent'>intent</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_on_intent'>on_intent</span><span class='lparen'>(</span><span class='id identifier rubyid_intent'>intent</span><span class='comma'>,</span> <span class='id identifier rubyid_priority'>priority</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="on_mqtt_message-class_method">
+  
+    .<strong>on_mqtt_message</strong>(topic, priority: 10) {|event| ... } &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Register a handler to be called when an MQTT message is received on a specific topic</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_on_mqtt_message'>on_mqtt_message</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/co2-athens/temp/temp</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+  <span class='id identifier rubyid_in_channel'>in_channel</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#random-temperature</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>It&#39;s getting hot in Athens</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span> <span class='op'>&gt;</span> <span class='int'>27</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>topic</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A topic to subscribe to.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Priority relative to other <span class='object_link'><a href="#on_reaction-class_method" title="SkillActions.on_reaction (method)">on_reaction</a></span> listeners.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>event</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="MqttMessageEvent.html" title="MqttMessageEvent (class)">MqttMessageEvent</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Called when a message on this topic is received.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+135
+136
+137
+138
+139
+140
+141
+142
+143</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 135</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on_mqtt_message'>on_mqtt_message</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_app'>app</span><span class='period'>.</span><span class='id identifier rubyid_mqtt'>mqtt</span>
+    <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cannot subscribe to MQTT topic </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_topic'>topic</span><span class='embexpr_end'>}</span><span class='tstring_content'>, no MQTT connection is configured</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_app'>app</span><span class='period'>.</span><span class='id identifier rubyid_mqtt'>mqtt</span><span class='period'>.</span><span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_on_mqtt_message'>on_mqtt_message</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_priority'>priority</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -938,12 +1089,12 @@ Reactions can include <code>:</code> or not. Example: <code>[&#39;:+1:&#39;, &#3
       <pre class="lines">
 
 
-117
 118
-119</pre>
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_reaction'>on_reaction</span><span class='lparen'>(</span><span class='id identifier rubyid_reactions'>reactions</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>added:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>removed:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_on_reaction'>on_reaction</span><span class='lparen'>(</span><span class='id identifier rubyid_reactions'>reactions</span><span class='comma'>,</span> <span class='id identifier rubyid_priority'>priority</span><span class='comma'>,</span> <span class='label'>added:</span> <span class='id identifier rubyid_added'>added</span><span class='comma'>,</span> <span class='label'>removed:</span> <span class='id identifier rubyid_removed'>removed</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1029,12 +1180,12 @@ with <span class='object_link'><a href="#in_channel-instance_method" title="Skil
       <pre class="lines">
 
 
-45
 46
-47</pre>
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_start'>on_start</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_on_start'>on_start</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1095,12 +1246,12 @@ with <span class='object_link'><a href="#in_channel-instance_method" title="Skil
       <pre class="lines">
 
 
-57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_stop'>on_stop</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_on_stop'>on_stop</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1197,12 +1348,12 @@ greetings:
       <pre class="lines">
 
 
-137
-138
-139</pre>
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 161</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_skill'>skill</span><span class='period'>.</span><span class='id identifier rubyid_app'>app</span><span class='period'>.</span><span class='id identifier rubyid_strings'>strings</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1247,14 +1398,14 @@ greetings:
       <pre class="lines">
 
 
-142
-143
-144
-145
-146</pre>
+166
+167
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_teach'>teach</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_samples'>samples</span> <span class='op'>=</span> <span class='const'>WitUpdateService</span><span class='op'>::</span><span class='const'>Samples</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1287,12 +1438,12 @@ greetings:
       <pre class="lines">
 
 
-218
-219
-220</pre>
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 218</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_analyze_message'>analyze_message</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
   <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_request_wit_data'>request_wit_data</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
@@ -1317,18 +1468,18 @@ greetings:
       <pre class="lines">
 
 
-226
-227
-228
-229
-230
-231
-232
-233
-234</pre>
+250
+251
+252
+253
+254
+255
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 250</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_any_string'>any_string</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_responses'>responses</span> <span class='op'>=</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
@@ -1359,14 +1510,14 @@ greetings:
       <pre class="lines">
 
 
-243
-244
-245
-246
-247</pre>
+267
+268
+269
+270
+271</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 243</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 267</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_await_next_response'>await_next_response</span>
   <span class='id identifier rubyid_channel'>channel</span><span class='comma'>,</span> <span class='id identifier rubyid_thread'>thread</span> <span class='op'>=</span> <span class='id identifier rubyid_response_defaults'>response_defaults</span>
@@ -1393,12 +1544,12 @@ greetings:
       <pre class="lines">
 
 
-158
-159
-160</pre>
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_context'>context</span>
   <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span>
@@ -1423,15 +1574,15 @@ greetings:
       <pre class="lines">
 
 
-236
-237
-238
-239
-240
-241</pre>
+260
+261
+262
+263
+264
+265</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 236</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 260</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_humanize'>humanize</span><span class='lparen'>(</span><span class='id identifier rubyid_stuff'>stuff</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_stuff'>stuff</span>
@@ -1544,24 +1695,24 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212</pre>
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 222</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_channel'>in_channel</span><span class='lparen'>(</span><span class='id identifier rubyid_channel'>channel</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_last_context'>last_context</span> <span class='op'>=</span> <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span>
@@ -1608,12 +1759,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-163
-164
-165</pre>
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 163</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initial_channel'>initial_channel</span>
   <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_channel'>channel</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
@@ -1648,12 +1799,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-168
-169
-170</pre>
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 192</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initial_thread'>initial_thread</span>
   <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_thread'>thread</span> <span class='op'>?</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_thread'>thread</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='kw'>nil</span>
@@ -1678,12 +1829,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-172
-173
-174</pre>
+196
+197
+198</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 172</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interaction_id'>interaction_id</span>
   <span class='ivar'>@interaction</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
@@ -1708,12 +1859,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-214
-215
-216</pre>
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 238</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_storage'>storage</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_storage'>storage</span><span class='period'>.</span><span class='id identifier rubyid_for_skill'>for_skill</span><span class='lparen'>(</span><span class='ivar'>@skill</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1738,12 +1889,12 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
       <pre class="lines">
 
 
-222
-223
-224</pre>
+246
+247
+248</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 222</span>
+      <pre class="code"><span class="info file"># File 'src/core/skill_actions.rb', line 246</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strings'>strings</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span>
   <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_strings'>strings</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1758,7 +1909,7 @@ or a Slack channel ID (e.g. <code>D1239C13</code>).</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Oct  8 00:33:41 2019 by
+  Generated on Wed Oct  9 22:02:03 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.1).
 </div>
